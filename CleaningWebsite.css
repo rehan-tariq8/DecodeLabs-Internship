@@ -15,6 +15,7 @@ body {
     background-size: cover;
     height: 560px;
     background-position: center;
+    position: relative;
 }
 
 .bg-img::before {
@@ -34,7 +35,6 @@ body {
     z-index: 2;
 }
 
-
 .nav-item .btn {
     border-radius: 20px;
     width: 120px;
@@ -52,6 +52,58 @@ form {
 .card {
     background-color: #fff3b0;
     margin-top: 20px;
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Zoom effect on testimonial cards hover */
+.card:hover {
+    transform: scale(1.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+/* Zoom effect on service images */
+.service img {
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    cursor: pointer;
+}
+
+.service img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+/* Zoom effect on before/after images */
+.pictures img {
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    cursor: pointer;
+}
+
+.pictures img:hover {
+    transform: scale(1.15);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+/* Zoom effect on cleaning book image */
+.lists + div img, 
+img[alt="Cleaning Book"] {
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    cursor: pointer;
+}
+
+img[alt="Cleaning Book"]:hover {
+    transform: scale(1.1);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+/* Zoom effect on towel shelves image */
+img[alt="Towel Shelves"] {
+    transition: transform 0.5s ease;
+}
+
+img[alt="Towel Shelves"]:hover {
+    transform: scale(1.02);
 }
 
 .heading {
@@ -69,7 +121,6 @@ form {
 
 .head {
     text-align: center;
-
 }
 
 .company {
@@ -87,18 +138,33 @@ form {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     margin-right: 30px;
+    transition: transform 0.3s ease;
+}
+
+.latch:hover {
+    transform: scale(1.1);
 }
 
 .stella {
     font-family: 'Pacifico', cursive;
     margin-right: 30px;
     margin-left: 30px;
+    transition: transform 0.3s ease;
+}
+
+.stella:hover {
+    transform: scale(1.1);
 }
 
 .gasparyan {
     font-family: 'Lato', sans-serif;
     margin-right: 30px;
     margin-left: 30px;
+    transition: transform 0.3s ease;
+}
+
+.gasparyan:hover {
+    transform: scale(1.1);
 }
 
 .volve {
@@ -106,11 +172,21 @@ form {
     margin-right: 30px;
     margin-left: 30px;
     font-weight: 700;
+    transition: transform 0.3s ease;
+}
+
+.volve:hover {
+    transform: scale(1.1);
 }
 
 .foreva {
     font-family: 'Dancing Script', cursive;
     margin-left: 30px;
+    transition: transform 0.3s ease;
+}
+
+.foreva:hover {
+    transform: scale(1.1);
 }
 
 .before {
@@ -133,6 +209,11 @@ form {
     transition: all 0.3s ease;
 }
 
+/* Zoom effect on step items */
+.step-item:hover {
+    transform: scale(1.05);
+}
+
 .step-icon span {
     width: 60px;
     height: 60px;
@@ -140,6 +221,13 @@ form {
     align-items: center;
     justify-content: center;
     margin: 0 auto;
+    transition: transform 0.4s ease, background-color 0.3s ease;
+}
+
+/* Zoom effect on step icons */
+.step-icon:hover span {
+    transform: scale(1.2);
+    background-color: #ffd700;
 }
 
 .step-item::after {
@@ -166,14 +254,12 @@ form {
 .lists ul {
     margin-right: 5px;
     list-style: none;
-
 }
 
 .lists li::before {
     content: "\2726";
     margin-right: 8px;
 }
-
 
 .lists li {
     margin-bottom: 10px;
@@ -200,5 +286,137 @@ form {
 .card-header {
     position: absolute;
     top: -20px;
+}
 
+/* ============================================
+   SCROLL ANIMATION CLASSES - FAST VERSION
+   ============================================ */
+
+/* Initial state - hidden with offset for slide-up effect */
+.card:not(.testimonial-card),
+.service img,
+.service .col-xl-4,
+.step-item,
+.lists,
+.before .col-xl-3,
+.pictures .col-xl-3,
+#plans .card,
+section .container h1,
+footer section {
+    opacity: 0;
+    transform: translateY(40px); /* Reduced from 80px */
+    transition: opacity 0.4s ease, transform 0.4s ease; /* Reduced from 0.8s */
+}
+
+/* Revealed state - slide up into position */
+.card.revealed:not(.testimonial-card),
+.service img.revealed,
+.service .col-xl-4.revealed,
+.step-item.revealed,
+.lists.revealed,
+.before .col-xl-3.revealed,
+.pictures .col-xl-3.revealed,
+#plans .card.revealed,
+section .container h1.revealed,
+footer section.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Testimonial cards - special animation */
+.testimonial-card {
+    opacity: 0;
+    transform: translateY(30px); /* Reduced from 60px */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Reduced from 0.6s */
+}
+
+.testimonial-card.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.testimonial-card .card:hover {
+    transform: scale(1.08);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+/* Staggered animation delays for cards in a row - FASTER */
+.testimonial-card:nth-child(1) { transition-delay: 0.05s; }
+.testimonial-card:nth-child(2) { transition-delay: 0.1s; }
+.testimonial-card:nth-child(3) { transition-delay: 0.15s; }
+.testimonial-card:nth-child(4) { transition-delay: 0.2s; }
+
+.testimonial-card.revealed:nth-child(1) { transition-delay: 0.05s; }
+.testimonial-card.revealed:nth-child(2) { transition-delay: 0.1s; }
+.testimonial-card.revealed:nth-child(3) { transition-delay: 0.15s; }
+.testimonial-card.revealed:nth-child(4) { transition-delay: 0.2s; }
+
+/* Button hover animation */
+.btn {
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.btn:hover {
+    transform: scale(1.08) !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Footer social icons zoom effect */
+footer svg {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+footer svg:hover {
+    transform: scale(1.5);
+}
+
+/* Footer links zoom effect */
+footer a {
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+footer a:hover {
+    transform: scale(1.05);
+    font-weight: bold;
+}
+
+/* Navbar brand zoom effect */
+.navbar-brand {
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover {
+    transform: scale(1.05);
+}
+
+/* Form zoom effect on focus */
+form input:focus,
+form select:focus {
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Service section buttons */
+.service .btn {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service .btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Plan card zoom effect */
+#plans .card {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+#plans .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
 }
